@@ -1,0 +1,15 @@
+driftpy==0.8.81
+anchorpy==0.21.0
+solana>=0.36,<0.37
+solders>=0.23,<0.27
+websockets==13.0
+httpx==0.28.1
+httpcore==1.0.7
+cachetools==5.3
+base58==2.1.1
+construct==2.10.68
+borsh-construct==0.1.0
+sumtypes==0.1a6
+pytest==8.2.0
+pytest-asyncio==0.24.0
+APScheduler==3.10.4
