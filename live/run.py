@@ -80,6 +80,8 @@ async def main_async():
 
         logger.info("" + ("-" * 100))
         logger.info("rebalance tick start")
+        ju_tick = await adapter.get_jlp_units()
+        strategy.jlp_units = ju_tick
 
         jlp_supply = await _resolve_jlp_supply()
         fees = await _resolve_undistributed_fees()
@@ -88,7 +90,7 @@ async def main_async():
         prices = await adapter.get_prices()
         liquid = await adapter.get_liquidity()
         hedge_pos = await adapter.get_positions()
-        logger.info("onchain jlp_supply=%s fees=%s spot=%s long=%s short=%s", jlp_supply, fees, spot, long_perp, short_perp)
+        logger.info("onchain jlp_supply=%s jlp_units=%s fees=%s spot=%s long=%s short=%s", jlp_supply, strategy.jlp_units, fees, spot, long_perp, short_perp)
         logger.info("market prices=%s liquidity=%s", prices, liquid)
         logger.info("exchange positions=%s", hedge_pos)
         pool = build_pool(jlp_supply, fees, spot, long_perp, short_perp)
