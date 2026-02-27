@@ -38,13 +38,16 @@ def env_float(k: str, default: float) -> float:
     except Exception:
         return default
 
-SOLANA_RPC_URL = env_str("SOLANA_RPC_URL",  "https://mainnet.helius-rpc.com/?api-key=4bb75497-c1e1-4d3c-ad5f-cd0e76cdb778")
+def env_list(k: str, default: list) -> list:
+    s = env_str(k, "")
+    if s in (None, ""):
+        return default
+    items = [x.strip() for x in s.replace("\n", ",").split(",")]
+    return [x for x in items if x]
+
+SOLANA_RPC_URL = env_str("SOLANA_RPC_URL", "https://solana-rpc.publicnode.com")
 HJLP_ADAPTER = env_str("HJLP_ADAPTER", "dummy").lower()
 
-RPC_CANDIDATES = [
-    SOLANA_RPC_URL,
-    "https://ultra-summer-tent.solana-mainnet.quiknode.pro/62846b3e71a905601da425d77131a6668deb137a",
-    "https://solana-rpc.publicnode.com",
-]
+RPC_CANDIDATES = env_list("RPC_CANDIDATES", [SOLANA_RPC_URL])
 DINGTALK_ACCESS_TOKEN = env_str("DINGTALK_ACCESS_TOKEN", "")
 DINGTALK_SECRET = env_str("DINGTALK_SECRET", "")
